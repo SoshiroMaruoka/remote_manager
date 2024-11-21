@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="nvt_core" type="launch_delayed.sh" args="5 roslaunch nvt_core main.launch" name="nvt_navigation" output="screen" >
+        <remap from="naviton/mobile_controller/cmd_vel" to="/naviton/mobile_base_controller/cmd_vel/ros"/>
+    </node>
+</launch>

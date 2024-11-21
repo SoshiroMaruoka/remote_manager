@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="mqtt_client" type="launch_delayed.sh" args="5 roslaunch mqtt_client standalone.launch" name="mqtt_client" output="screen" />
+</launch>

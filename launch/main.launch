@@ -1,39 +1,38 @@
 <launch>
 
     <!-- ======== Parameters ======== -->
+    <arg name="remote" default="true" />
     <arg name="navigation" default="true" />
     <arg name="manipulation" default="true" />
-    <arg name="remote" default="true" />
     <arg name="video" default="true" />
 
-    <node name="remote_manager" pkg="remote_manager" type="remote_manager">
+    <arg name="param_file_dwa_planner" default="$(find nvt_core)/config/planning/planner/dwa_planner.yaml" />
 
-    <!-- Navigation Mode Only -->
+    <!-- Remote Mode Only -->
+    <group if="$(arg remote)">
+        <node pkg="remote_manager" type="remote_manager_node" args="5 roslaunch remote_manager main.launch" name="remote_manager" output="screen" />
+        <include file="$(find mqtt_client)/launch/standalone.launch"/>
+        <!-- <node pkg="mqtt_client" type="launch_delayed.sh" args="5 roslaunch mqtt_client standalone.launch" name="mqtt_client" output="screen" /> -->
+    </group>
+
+    <!--Navigation Mode Only -->
     <group if="$(arg navigation)">
+        <include file="$(find nvt_core)/launch/main.launch"/>
 
-        <node pkg="nvt_core" type="launch_delayed.sh" args="5 roslaunch nvt_core main.launch" name="nvt_navigation" output="screen" />
+        <!-- <node pkg="nvt_core" type="launch_delayed.sh" args="5 roslaunch nvt_core main.launch" name="nvt_navigation" output="screen" >
             <remap from="naviton/mobile_controller/cmd_vel" to="/naviton/mobile_base_controller/cmd_vel/ros"/>
-        </node>
-
-        <!-- Remote Mode Only -->
-        <group if="$(arg navigation)">
-            
-            <node pkg="nvt_core" type="launch_delayed.sh" args="5 roslaunch nvt_core main.launch" name="nvt_navigation" output="screen" />
-            
-            <!-- Video Mode Only -->
-            <!-- <group if="$(arg video)">
-                <node pkg="nvt_core" type="launch_delayed.sh" args="5 roslaunch nvt_core main.launch" name="nvt_navigation" output="screen" />
-            </group> -->
-
-        </group>
+        </node> -->
 
     </group>
 
     <!-- Manipulation Mode Only -->
     <group if="$(arg manipulation)">
-
-        <node pkg="nvt_manipulator_core" type="launch_delayed.sh" args="5 roslaunch nvt_manipulator_core main.launch" name="nvt_manipulation" output="screen" />
-
+        <include file="$(find nvt_manipulator_core)/launch/main.launch"/>
+        <!-- <node pkg="nvt_manipulator_core" type="launch_delayed.sh" args="5 roslaunch nvt_manipulator_core main.launch" name="nvt_manipulation" output="screen" /> -->
     </group>
+
+    <!-- Video Mode Only -->
+    <!-- <group if="$(arg video)">
+    </group> -->
 
 </launch>

@@ -11,12 +11,12 @@ int main(int argc, char **argv)
 
     ros::Rate loop_rate(frequency);
 
-    Naviton nvt(nh, pn);
-    nvt.init();
+    RemoteManager rm(nh, pn);
+    rm.init();
 
     while(ros::ok())
     {
-        nvt.update();
+        rm.update();
         ros::spinOnce();
         loop_rate.sleep();
     }

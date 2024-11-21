@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="nvt_manipulator_core" type="launch_delayed.sh" args="5 roslaunch nvt_manipulator_core main.launch" name="nvt_manipulation" output="screen" />
+</launch>

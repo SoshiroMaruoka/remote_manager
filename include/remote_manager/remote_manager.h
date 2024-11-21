@@ -8,16 +8,22 @@
 #include <std_msgs/Int32.h>
 #include <std_msgs/Bool.h>
 
-class Remote_manager
+class RemoteManager
 {
     public:
-        Remote_manager(ros::NodeHandle &nh, ros::NodeHandle &pn);
+        RemoteManager(ros::NodeHandle &nh, ros::NodeHandle &pn);
         void init();
         void update();
-        void cmd_vel_ros_cb();
-        void cmd_vel_remote_cb();
-        void emg_switch_cb();
-        void mode_switch_cb();
+
+        void Drive(const geometry_msgs::Twist& cmd_vel_used);
+        void Stop();
+        // void Accelerate();
+        // void DecelerateStop();
+
+        void cmd_vel_ros_cb(const geometry_msgs::Twist& ros_msg);
+        void cmd_vel_remote_cb(const geometry_msgs::Twist& remote_msg);
+        void emg_switch_cb(const std_msgs::Bool& emg_msg);
+        void mode_switch_cb(const std_msgs::Int32& mode_msg);
 
     private:
         ros::Subscriber _cmd_vel_ros_sub;
@@ -28,9 +34,11 @@ class Remote_manager
 
         geometry_msgs::Twist _cmd_vel_ros;
         geometry_msgs::Twist _cmd_vel_remote;
-        std_msgs::Bool _emg_switch;
-        std_msgs::Int32 _mode_switch;
+        bool _emg_switch;
+        int _mode_switch;
         geometry_msgs::Twist _cmd_vel;
+
+        const geometry_msgs::Twist cmd_vel_zero;
 
 };
 
