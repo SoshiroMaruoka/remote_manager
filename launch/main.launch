@@ -10,7 +10,7 @@
 
     <!-- Remote Mode Only -->
     <group if="$(arg remote)">
-        <node pkg="remote_manager" type="remote_manager_node" args="5 roslaunch remote_manager main.launch" name="remote_manager" output="screen" />
+        <node name="remote_manager" pkg="remote_manager" type="remote_manager_node" output="screen" /> 
         <include file="$(find mqtt_client)/launch/standalone.launch"/>
         <!-- <node pkg="mqtt_client" type="launch_delayed.sh" args="5 roslaunch mqtt_client standalone.launch" name="mqtt_client" output="screen" /> -->
     </group>

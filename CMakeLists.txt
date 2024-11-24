@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   geometry_msgs
+  waypoint_msgs
+  waypoint_manager_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
  INCLUDE_DIRS include
  LIBRARIES remote_manager
- CATKIN_DEPENDS roscpp std_msgs geometry_msgs
+ CATKIN_DEPENDS roscpp std_msgs geometry_msgs waypoint_msgs waypoint_manager_msgs
 #  DEPENDS system_lib
 )
 
