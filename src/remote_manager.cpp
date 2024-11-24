@@ -40,24 +40,22 @@ void RemoteManager::update()
         pause_done = true;
     }
     if(_emg_switch){_mode_switch = 2;}
+    switch(_mode_switch)
     {
-        switch(_mode_switch)
-        {
-            case 0:
-                Drive(_cmd_vel_ros);
-                break;
-            case 1:
-                Drive(_cmd_vel_remote);
-                break;
-            case 2:
-                Stop();
-                break;
-            case 3:
-                pause();
-                break;
-            default:
-                return;
-        }
+        case 0:
+            Drive(_cmd_vel_ros);
+            break;
+        case 1:
+            Drive(_cmd_vel_remote);
+            break;
+        case 2:
+            Stop();
+            break;
+        case 3:
+            pause();
+            break;
+        default:
+            return;
     }
     _cmd_vel_pub.publish(_cmd_vel);
 }
@@ -117,7 +115,7 @@ void RemoteManager::cmd_vel_ros_cb(const geometry_msgs::Twist& ros_msg)
 
 void RemoteManager::cmd_vel_remote_cb(const geometry_msgs::Twist& remote_msg)
 {
-    _cmd_vel_remote.linear.x = 0.4 * remote_msg.linear.x;
+    _cmd_vel_remote.linear.x = 0.3 * remote_msg.linear.x;
     _cmd_vel_remote.angular.z = 0.3 * remote_msg.angular.z;
 }
 

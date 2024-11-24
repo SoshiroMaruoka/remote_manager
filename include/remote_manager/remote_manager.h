@@ -25,7 +25,6 @@ class RemoteManager
         // void Accelerate();
         // void DecelerateStop();
 
-    private:
         void cmd_vel_ros_cb(const geometry_msgs::Twist& ros_msg);
         void cmd_vel_remote_cb(const geometry_msgs::Twist& remote_msg);
         void emg_switch_cb(const std_msgs::Bool& emg_msg);
@@ -33,6 +32,7 @@ class RemoteManager
         void waypoints_cb(waypoint_msgs::waypointsConstPtr msg);
         void waypoint_cb(waypoint_msgs::waypointConstPtr msg);
 
+    private:
         ros::Subscriber _cmd_vel_ros_sub;
         ros::Subscriber _cmd_vel_remote_sub;
         ros::Subscriber _emg_switch_sub;
